@@ -12,7 +12,9 @@ import Item from "./Item";
 import { Add as AddIcon } from "@mui/icons-material";
 
 export default function Home() {
-  const [item, setItem] = useState([{ id: 1, name: "apple", done: false }]);
+  const [item, setItem] = useState([
+    { id: 1, name: "Taking medicine", done: false },
+  ]);
   const [isedit, setIsEdit] = useState({ id: null, text: "" });
   const inputRef = useRef();
 
