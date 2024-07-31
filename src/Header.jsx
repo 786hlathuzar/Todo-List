@@ -1,13 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "./ThemeProvider";
-import {
-  Box,
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  IconButton,
-} from "@mui/material";
+import { Box, AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import {
   LightMode as LightModeIcon,
   DarkMode as DarkModeIcon,
@@ -20,7 +13,7 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Logo
+            Todo List
           </Typography>
           <IconButton color="inherit" onClick={() => setMode(!mode)}>
             {mode ? <LightModeIcon /> : <DarkModeIcon />}

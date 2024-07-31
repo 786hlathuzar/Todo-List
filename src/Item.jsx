@@ -1,3 +1,5 @@
+import React from "react";
+import { useTheme } from "@mui/material/styles";
 import {
   ListItem,
   ListItemButton,
@@ -5,32 +7,36 @@ import {
   ListItemText,
   Checkbox,
   IconButton,
+  ListItemSecondaryAction,
   Typography,
+  TextField,
 } from "@mui/material";
-import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import {
+  Edit as EditIcon,
+  Check as CheckIcon,
+  Close as CloseIcon,
+  Delete as DeleteIcon,
+} from "@mui/icons-material";
 import { grey } from "@mui/material/colors";
 
-export default function Item({ value, handleToggle }) {
+export default function Item({
+  value,
+  handleToggle,
+  handleSaveClick,
+  isedit,
+  handleEditClick,
+  handleCancelClick,
+  handleChange,
+  remove,
+}) {
+  const theme = useTheme();
+
   return (
-    <ListItem
-      key={value.id}
-      secondaryAction={
-        <>
-          {!value.done ? (
-            <IconButton>
-              <EditIcon color="success" />
-            </IconButton>
-          ) : null}
-          <IconButton>
-            <DeleteIcon color="error" />
-          </IconButton>
-        </>
-      }
-      disablePadding
-    >
-      <ListItemButton onClick={() => handleToggle(value.id)}>
+    <ListItem key={value.id}>
+      {isedit.id !== value.id ? (
         <ListItemIcon>
           <Checkbox
+            onClick={() => handleToggle(value.id)}
             edge="start"
             checked={value.done}
             inputProps={{ "aria-labelledby": value.id }}
@@ -42,22 +48,55 @@ export default function Item({ value, handleToggle }) {
             }}
           />
         </ListItemIcon>
+      ) : null}
 
-        <ListItemText
-          primary={
-            <Typography
-              sx={{
-                color: value.done ? grey[500] : "default",
-                "&.Mui-checked": {
-                  color: value.done ? grey[500] : "default",
-                },
-              }}
+      {isedit && isedit.id === value.id ? (
+        <>
+          <TextField value={isedit.text} onChange={handleChange} fullWidth />
+          <ListItemSecondaryAction>
+            <IconButton
+              onClick={() => handleSaveClick(value.id)}
+              color="success"
             >
-              {value.name}
-            </Typography>
-          }
-        />
-      </ListItemButton>
+              <CheckIcon />
+            </IconButton>
+            <IconButton onClick={() => handleCancelClick(value.id)}>
+              <CloseIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </>
+      ) : (
+        <>
+          <ListItemText
+            secondary={
+              <Typography
+                sx={{
+                  color: value.done ? grey[500] : theme.palette.text.primary,
+                  "&.Mui-checked": {
+                    color: value.done ? grey[500] : theme.palette.text.primary,
+                  },
+                }}
+              >
+                {value.name}
+              </Typography>
+            }
+          />
+
+          <ListItemSecondaryAction>
+            {!value.done ? (
+              <IconButton
+                onClick={() => handleEditClick(value.id)}
+                color="success"
+              >
+                <EditIcon />
+              </IconButton>
+            ) : null}
+            <IconButton onClick={() => remove(value.id)} color="error">
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </>
+      )}
     </ListItem>
   );
 }
