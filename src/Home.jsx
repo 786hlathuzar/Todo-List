@@ -55,7 +55,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Box sx={{ mx: "auto", maxWidth: 600 }}>
+      <Box sx={{ mx: "auto", maxWidth: 600, mt: "2%" }}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
