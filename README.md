@@ -10,3 +10,7 @@ Currently, two official plugins are available:
 MUI icon:
 
 - https://mui.com/material-ui/material-icons/
+
+Running Project :
+
+-npm run dev
